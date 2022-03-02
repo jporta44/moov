@@ -17,8 +17,8 @@
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.moov.moovapp.ItemDetailHostActivity"
-        tools:listitem="@layout/item_list_content" />
+        tools:context="com.moov.moovapp.view.MainActivity"
+        tools:listitem="@layout/user_list_content" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

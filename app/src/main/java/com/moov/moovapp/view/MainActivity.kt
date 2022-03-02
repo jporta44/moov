@@ -1,4 +1,4 @@
-package com.moov.moovapp
+package com.moov.moovapp.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,16 +7,17 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.moov.moovapp.databinding.ActivityItemDetailBinding
+import com.moov.moovapp.R
+import com.moov.moovapp.databinding.ActivityUserDetailBinding
 
-class ItemDetailHostActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityItemDetailBinding.inflate(layoutInflater)
+        val binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navHostFragment =

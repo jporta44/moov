@@ -1,8 +1,7 @@
-package com.moov.moovapp
+package com.moov.moovapp.view
 
 import android.content.ClipData
 import android.content.ClipDescription
-import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -14,20 +13,20 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.moov.moovapp.placeholder.PlaceholderContent;
-import com.moov.moovapp.databinding.FragmentItemListBinding
-import com.moov.moovapp.databinding.ItemListContentBinding
+import com.moov.moovapp.R
+import com.moov.moovapp.databinding.FragmentUserListBinding
+import com.moov.moovapp.databinding.UserListContentBinding
 
 /**
- * A Fragment representing a list of Pings. This fragment
+ * A Fragment representing a list of Users. This fragment
  * has different presentations for handset and larger screen devices. On
- * handsets, the fragment presents a list of items, which when touched,
+ * handsets, the fragment presents a list of users, which when touched,
  * lead to a {@link ItemDetailFragment} representing
- * item details. On larger screens, the Navigation controller presents the list of items and
- * item details side-by-side using two vertical panes.
+ * user details. On larger screens, the Navigation controller presents the list of users and
+ * user details side-by-side using two vertical panes.
  */
 
-class ItemListFragment : Fragment() {
+class UserListFragment : Fragment() {
 
     /**
      * Method to intercept global key events in the
@@ -43,19 +42,17 @@ class ItemListFragment : Fragment() {
                     "Undo (Ctrl + Z) shortcut triggered",
                     Toast.LENGTH_LONG
                 ).show()
-                true
             } else if (event.keyCode == KeyEvent.KEYCODE_F && event.isCtrlPressed) {
                 Toast.makeText(
                     v.context,
                     "Find (Ctrl + F) shortcut triggered",
                     Toast.LENGTH_LONG
                 ).show()
-                true
             }
             false
         }
 
-    private var _binding: FragmentItemListBinding? = null
+    private var _binding: FragmentUserListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -64,9 +61,9 @@ class ItemListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        _binding = FragmentItemListBinding.inflate(inflater, container, false)
+        _binding = FragmentUserListBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -104,7 +101,7 @@ class ItemListFragment : Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
             val binding =
-                ItemListContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                UserListContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return ViewHolder(binding)
 
         }
@@ -117,11 +114,11 @@ class ItemListFragment : Fragment() {
             with(holder.itemView) {
                 tag = item
                 setOnClickListener { itemView ->
-                    val item = itemView.tag as PlaceholderContent.PlaceholderItem
+                    val user = itemView.tag as PlaceholderContent.PlaceholderItem
                     val bundle = Bundle()
                     bundle.putString(
-                        ItemDetailFragment.ARG_ITEM_ID,
-                        item.id
+                        UserDetailFragment.ARG_ITEM_ID,
+                        user.id
                     )
                     if (itemDetailFragmentContainer != null) {
                         itemDetailFragmentContainer.findNavController()
@@ -130,22 +127,17 @@ class ItemListFragment : Fragment() {
                         itemView.findNavController().navigate(R.id.show_item_detail, bundle)
                     }
                 }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    /**
-                     * Context click listener to handle Right click events
-                     * from mice and trackpad input to provide a more native
-                     * experience on larger screen devices
-                     */
-                    setOnContextClickListener { v ->
-                        val item = v.tag as PlaceholderContent.PlaceholderItem
-                        Toast.makeText(
-                            v.context,
-                            "Context click of item " + item.id,
-                            Toast.LENGTH_LONG
-                        ).show()
-                        true
-                    }
+
+                setOnContextClickListener { v ->
+                    val user = v.tag as PlaceholderContent.PlaceholderItem
+                    Toast.makeText(
+                        v.context,
+                        "Context click of item " + user.id,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    true
                 }
+
 
                 setOnLongClickListener { v ->
                     // Setting the item id as the clip data so that the drop target is able to
@@ -157,28 +149,20 @@ class ItemListFragment : Fragment() {
                         clipItem
                     )
 
-                    if (Build.VERSION.SDK_INT >= 24) {
-                        v.startDragAndDrop(
-                            dragData,
-                            View.DragShadowBuilder(v),
-                            null,
-                            0
-                        )
-                    } else {
-                        v.startDrag(
-                            dragData,
-                            View.DragShadowBuilder(v),
-                            null,
-                            0
-                        )
-                    }
+                    v.startDragAndDrop(
+                        dragData,
+                        View.DragShadowBuilder(v),
+                        null,
+                        0
+                    )
+
                 }
             }
         }
 
         override fun getItemCount() = values.size
 
-        inner class ViewHolder(binding: ItemListContentBinding) :
+        inner class ViewHolder(binding: UserListContentBinding) :
             RecyclerView.ViewHolder(binding.root) {
             val idView: TextView = binding.idText
             val contentView: TextView = binding.content

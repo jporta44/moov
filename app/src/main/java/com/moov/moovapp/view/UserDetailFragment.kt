@@ -1,24 +1,23 @@
-package com.moov.moovapp
+package com.moov.moovapp.view
 
 import android.content.ClipData
 import android.os.Bundle
 import android.view.DragEvent
-import androidx.fragment.app.Fragment
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.moov.moovapp.placeholder.PlaceholderContent
-import com.moov.moovapp.databinding.FragmentItemDetailBinding
+import androidx.fragment.app.Fragment
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.moov.moovapp.databinding.FragmentUserDetailBinding
 
 /**
- * A fragment representing a single Item detail screen.
- * This fragment is either contained in a [ItemListFragment]
+ * A fragment representing a single User detail screen.
+ * This fragment is either contained in a [UserListFragment]
  * in two-pane mode (on larger screen devices) or self-contained
  * on handsets.
  */
-class ItemDetailFragment : Fragment() {
+class UserDetailFragment : Fragment() {
 
     /**
      * The placeholder content this fragment is presenting.
@@ -28,7 +27,7 @@ class ItemDetailFragment : Fragment() {
     lateinit var itemDetailTextView: TextView
     private var toolbarLayout: CollapsingToolbarLayout? = null
 
-    private var _binding: FragmentItemDetailBinding? = null
+    private var _binding: FragmentUserDetailBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -60,9 +59,9 @@ class ItemDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        _binding = FragmentItemDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentUserDetailBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
         toolbarLayout = binding.toolbarLayout

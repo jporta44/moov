@@ -1,4 +1,4 @@
-package com.moov.moovapp.placeholder
+package com.moov.moovapp.view
 
 import java.util.ArrayList
 import java.util.HashMap
