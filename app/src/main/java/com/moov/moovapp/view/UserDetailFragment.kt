@@ -65,7 +65,7 @@ class UserDetailFragment : Fragment() {
         val rootView = binding?.root
 
         toolbarLayout = binding?.toolbarLayout
-        itemDetailTextView = binding?.itemDetail
+        itemDetailTextView = binding?.userDetail
 
         updateContent()
         rootView?.setOnDragListener(dragListener)

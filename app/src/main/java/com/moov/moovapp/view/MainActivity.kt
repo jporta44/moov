@@ -21,14 +21,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_item_detail) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_user_detail) as NavHostFragment
         val navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_item_detail)
+        val navController = findNavController(R.id.nav_host_fragment_user_detail)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }

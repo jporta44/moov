@@ -73,11 +73,11 @@ class UserListFragment : Fragment() {
 
         ViewCompat.addOnUnhandledKeyEventListener(view, unhandledKeyEventListenerCompat)
 
-        val recyclerView: RecyclerView? = binding?.itemList
+        val recyclerView: RecyclerView? = binding?.userList
 
         // Leaving this not using view binding as it relies on if the view is visible the current
         // layout configuration (layout, layout-sw600dp)
-        val itemDetailFragmentContainer: View? = view.findViewById(R.id.item_detail_nav_container)
+        val itemDetailFragmentContainer: View? = view.findViewById(R.id.user_detail_nav_container)
 
         setupRecyclerView(recyclerView, itemDetailFragmentContainer)
     }
@@ -122,9 +122,9 @@ class UserListFragment : Fragment() {
                     )
                     if (itemDetailFragmentContainer != null) {
                         itemDetailFragmentContainer.findNavController()
-                            .navigate(R.id.fragment_item_detail, bundle)
+                            .navigate(R.id.fragment_user_detail, bundle)
                     } else {
-                        itemView.findNavController().navigate(R.id.show_item_detail, bundle)
+                        itemView.findNavController().navigate(R.id.show_user_detail, bundle)
                     }
                 }
 
