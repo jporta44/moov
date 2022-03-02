@@ -16,6 +16,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.moov.moovapp.view.MainActivity"
+        tools:context="com.moov.moovapp.ui.MainActivity"
         tools:listitem="@layout/user_list_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

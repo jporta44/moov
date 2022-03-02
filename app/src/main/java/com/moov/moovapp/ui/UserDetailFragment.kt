@@ -1,8 +1,6 @@
-package com.moov.moovapp.view
+package com.moov.moovapp.ui
 
-import android.content.ClipData
 import android.os.Bundle
-import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.moov.moovapp.databinding.FragmentUserDetailBinding
+import com.moov.moovapp.model.User
 
 /**
  * A fragment representing a single User detail screen.
@@ -22,7 +21,7 @@ class UserDetailFragment : Fragment() {
     /**
      * The placeholder content this fragment is presenting.
      */
-    private var user: PlaceholderContent.PlaceholderItem? = null
+    private var user: User? = null
 
     private var itemDetailTextView: TextView? = null
     private var toolbarLayout: CollapsingToolbarLayout? = null
@@ -33,15 +32,6 @@ class UserDetailFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding
 
-    private val dragListener = View.OnDragListener { v, event ->
-        if (event.action == DragEvent.ACTION_DROP) {
-            val clipDataItem: ClipData.Item = event.clipData.getItemAt(0)
-            val dragData = clipDataItem.text
-            user = PlaceholderContent.ITEM_MAP[dragData]
-            updateContent()
-        }
-        true
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +41,7 @@ class UserDetailFragment : Fragment() {
                 // Load the placeholder content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
-                user = PlaceholderContent.ITEM_MAP[it.getString(ARG_USER_ID)]
+                //user = PlaceholderContent.ITEM_MAP[it.getString(ARG_USER_ID)]
             }
         }
     }
@@ -68,17 +58,16 @@ class UserDetailFragment : Fragment() {
         itemDetailTextView = binding?.userDetail
 
         updateContent()
-        rootView?.setOnDragListener(dragListener)
 
         return rootView
     }
 
     private fun updateContent() {
-        toolbarLayout?.title = user?.content
+        toolbarLayout?.title = user?.firsName
 
         // Show the placeholder content as text in a TextView.
         user?.let {
-            itemDetailTextView?.text = it.details
+            itemDetailTextView?.text = it.lastName
         }
     }
 

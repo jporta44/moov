@@ -5,7 +5,7 @@
     android:id="@+id/user_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity"
+    tools:context=".ui.MainActivity"
     tools:ignore="MergeRootFrame">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -49,7 +49,7 @@
             android:paddingEnd="@dimen/container_horizontal_margin"
             android:paddingBottom="16dp"
             android:textIsSelectable="true"
-            tools:context="com.moov.moovapp.view.UserDetailFragment" />
+            tools:context="com.moov.moovapp.ui.UserDetailFragment" />
 
     </androidx.core.widget.NestedScrollView>
 

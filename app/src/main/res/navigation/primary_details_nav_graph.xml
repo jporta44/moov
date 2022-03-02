@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/user_list_fragment"
-        android:name="com.moov.moovapp.view.UserListFragment"
+        android:name="com.moov.moovapp.ui.UserListFragment"
         android:label="ItemListFragment">
         <action
             android:id="@+id/show_user_detail"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/user_detail_fragment"
-        android:name="com.moov.moovapp.view.UserDetailFragment"
+        android:name="com.moov.moovapp.ui.UserDetailFragment"
         android:label="user_detail"
         tools:layout="@layout/fragment_user_detail">
         <argument
