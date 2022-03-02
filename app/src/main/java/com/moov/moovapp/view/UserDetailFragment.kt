@@ -22,7 +22,7 @@ class UserDetailFragment : Fragment() {
     /**
      * The placeholder content this fragment is presenting.
      */
-    private var item: PlaceholderContent.PlaceholderItem? = null
+    private var user: PlaceholderContent.PlaceholderItem? = null
 
     private var itemDetailTextView: TextView? = null
     private var toolbarLayout: CollapsingToolbarLayout? = null
@@ -37,7 +37,7 @@ class UserDetailFragment : Fragment() {
         if (event.action == DragEvent.ACTION_DROP) {
             val clipDataItem: ClipData.Item = event.clipData.getItemAt(0)
             val dragData = clipDataItem.text
-            item = PlaceholderContent.ITEM_MAP[dragData]
+            user = PlaceholderContent.ITEM_MAP[dragData]
             updateContent()
         }
         true
@@ -47,11 +47,11 @@ class UserDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            if (it.containsKey(ARG_ITEM_ID)) {
+            if (it.containsKey(ARG_USER_ID)) {
                 // Load the placeholder content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
-                item = PlaceholderContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
+                user = PlaceholderContent.ITEM_MAP[it.getString(ARG_USER_ID)]
             }
         }
     }
@@ -74,20 +74,20 @@ class UserDetailFragment : Fragment() {
     }
 
     private fun updateContent() {
-        toolbarLayout?.title = item?.content
+        toolbarLayout?.title = user?.content
 
         // Show the placeholder content as text in a TextView.
-        item?.let {
+        user?.let {
             itemDetailTextView?.text = it.details
         }
     }
 
     companion object {
         /**
-         * The fragment argument representing the item ID that this fragment
+         * The fragment argument representing the user ID that this fragment
          * represents.
          */
-        const val ARG_ITEM_ID = "item_id"
+        const val ARG_USER_ID = "user_id"
     }
 
     override fun onDestroyView() {

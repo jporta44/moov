@@ -117,7 +117,7 @@ class UserListFragment : Fragment() {
                     val user = itemView.tag as PlaceholderContent.PlaceholderItem
                     val bundle = Bundle()
                     bundle.putString(
-                        UserDetailFragment.ARG_ITEM_ID,
+                        UserDetailFragment.ARG_USER_ID,
                         user.id
                     )
                     if (itemDetailFragmentContainer != null) {
