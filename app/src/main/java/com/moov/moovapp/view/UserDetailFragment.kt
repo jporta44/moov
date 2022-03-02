@@ -24,14 +24,14 @@ class UserDetailFragment : Fragment() {
      */
     private var item: PlaceholderContent.PlaceholderItem? = null
 
-    lateinit var itemDetailTextView: TextView
+    private var itemDetailTextView: TextView? = null
     private var toolbarLayout: CollapsingToolbarLayout? = null
 
     private var _binding: FragmentUserDetailBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private val dragListener = View.OnDragListener { v, event ->
         if (event.action == DragEvent.ACTION_DROP) {
@@ -59,16 +59,16 @@ class UserDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
 
         _binding = FragmentUserDetailBinding.inflate(inflater, container, false)
-        val rootView = binding.root
+        val rootView = binding?.root
 
-        toolbarLayout = binding.toolbarLayout
-        itemDetailTextView = binding.itemDetail
+        toolbarLayout = binding?.toolbarLayout
+        itemDetailTextView = binding?.itemDetail
 
         updateContent()
-        rootView.setOnDragListener(dragListener)
+        rootView?.setOnDragListener(dragListener)
 
         return rootView
     }
@@ -78,7 +78,7 @@ class UserDetailFragment : Fragment() {
 
         // Show the placeholder content as text in a TextView.
         item?.let {
-            itemDetailTextView.text = it.details
+            itemDetailTextView?.text = it.details
         }
     }
 

@@ -56,15 +56,15 @@ class UserListFragment : Fragment() {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
 
         _binding = FragmentUserListBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
 
     }
 
@@ -73,7 +73,7 @@ class UserListFragment : Fragment() {
 
         ViewCompat.addOnUnhandledKeyEventListener(view, unhandledKeyEventListenerCompat)
 
-        val recyclerView: RecyclerView = binding.itemList
+        val recyclerView: RecyclerView? = binding?.itemList
 
         // Leaving this not using view binding as it relies on if the view is visible the current
         // layout configuration (layout, layout-sw600dp)
@@ -83,11 +83,11 @@ class UserListFragment : Fragment() {
     }
 
     private fun setupRecyclerView(
-        recyclerView: RecyclerView,
+        recyclerView: RecyclerView?,
         itemDetailFragmentContainer: View?
     ) {
 
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(
+        recyclerView?.adapter = SimpleItemRecyclerViewAdapter(
             PlaceholderContent.ITEMS, itemDetailFragmentContainer
         )
     }
