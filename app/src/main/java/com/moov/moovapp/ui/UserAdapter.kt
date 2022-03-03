@@ -3,22 +3,18 @@ package com.moov.moovapp.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.moov.moovapp.databinding.UserListContentBinding
 import com.moov.moovapp.model.User
-import java.util.ArrayList
 
-class UserRecyclerViewAdapter: RecyclerView.Adapter<UserRecyclerViewAdapter.ViewHolder>() {
+class UserAdapter(diffCallback: DiffUtil.ItemCallback<User>):
+    PagingDataAdapter<User, UserAdapter.ViewHolder>(diffCallback) {
 
-    private var values: ArrayList<User> = ArrayList()
     var onItemClick: ((User) -> Unit)? = null
 
-    fun addUsers (users: List<User>) {
-        values.clear()
-        values.addAll(users)
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
         val binding =
             UserListContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -26,12 +22,10 @@ class UserRecyclerViewAdapter: RecyclerView.Adapter<UserRecyclerViewAdapter.View
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id.toString()
-        holder.contentView.text = item.getFullName()
+        val item = getItem(position)
+        holder.idView.text = item?.id.toString()
+        holder.contentView.text = item?.getFullName()
     }
-
-    override fun getItemCount() = values.size
 
     inner class ViewHolder(binding: UserListContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -40,8 +34,18 @@ class UserRecyclerViewAdapter: RecyclerView.Adapter<UserRecyclerViewAdapter.View
 
         init {
             binding.root.setOnClickListener {
-                onItemClick?.invoke(values[bindingAdapterPosition])
+                getItem(bindingAdapterPosition)?.let { it1 -> onItemClick?.invoke(it1) }
             }
+        }
+    }
+
+    object UserComparator : DiffUtil.ItemCallback<User>() {
+        override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+            return oldItem == newItem
         }
     }
 

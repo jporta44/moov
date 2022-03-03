@@ -1,7 +1,6 @@
 package com.moov.moovapp.api
 
 import com.moov.moovapp.model.ApiResponse
-import com.moov.moovapp.model.User
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -24,8 +23,7 @@ object UserApi {
         retrofit.create(UserService::class.java)
     }
 
-    suspend fun getUsers(page: Int? = null): ArrayList<User>? {
-        val response = userService.getUsers(page)
-        return response.users
+    suspend fun getUsers(page: Int? = null): ApiResponse {
+        return userService.getUsers(page)
     }
 }

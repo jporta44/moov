@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.moov.moovapp.R
 import com.moov.moovapp.databinding.FragmentUserListBinding
 import com.moov.moovapp.viewmodel.UserViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * A Fragment representing a list of Users. This fragment
@@ -26,10 +29,8 @@ class UserListFragment : Fragment() {
     private val userViewModel: UserViewModel by activityViewModels()
 
     private var _binding: FragmentUserListBinding? = null
-    private var adapter = UserRecyclerViewAdapter()
+    private var adapter = UserAdapter(UserAdapter.UserComparator)
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding
 
     override fun onCreateView(
@@ -46,23 +47,25 @@ class UserListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView: RecyclerView? = binding?.userList
-
         val itemDetailFragmentContainer: View? = view.findViewById(R.id.user_detail_nav_container)
-
-        userViewModel.getUsers().observe(viewLifecycleOwner) {
-            adapter.addUsers(it)
-            recyclerView?.adapter = adapter
-            adapter.onItemClick = { user ->
-                userViewModel.select(user)
-                if (itemDetailFragmentContainer != null) {
-                    itemDetailFragmentContainer.findNavController()
-                        .navigate(R.id.fragment_user_detail)
-                } else {
-                    binding?.root?.findNavController()?.navigate(R.id.show_user_detail)
-                }
+        adapter.onItemClick = { user ->
+            userViewModel.select(user)
+            if (itemDetailFragmentContainer != null) {
+                itemDetailFragmentContainer.findNavController()
+                    .navigate(R.id.fragment_user_detail)
+            } else {
+                binding?.root?.findNavController()?.navigate(R.id.show_user_detail)
             }
         }
 
+        recyclerView?.adapter = adapter
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            userViewModel.flow.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
+        }
     }
 
 
