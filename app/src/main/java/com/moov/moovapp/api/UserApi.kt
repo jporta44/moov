@@ -24,7 +24,7 @@ object UserApi {
         retrofit.create(UserService::class.java)
     }
 
-    suspend fun getUsers(page: Int?): ArrayList<User>? {
+    suspend fun getUsers(page: Int? = null): ArrayList<User>? {
         val response = userService.getUsers(page)
         return response.users
     }
