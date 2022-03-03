@@ -9,10 +9,6 @@
         android:name="com.moov.moovapp.ui.UserDetailFragment"
         android:label="@string/title_user_detail"
         tools:layout="@layout/fragment_user_detail">
-        <argument
-            android:name="user_id"
-            android:defaultValue=""
-            app:argType="string" />
     </fragment>
 
 </navigation>
