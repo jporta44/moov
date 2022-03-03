@@ -43,10 +43,10 @@ class UserDetailFragment : Fragment() {
         toolbarLayout = binding?.toolbarLayout
         itemDetailTextView = binding?.userDetail
 
+        // React to user selection updates
         userViewModel.selected.observe(viewLifecycleOwner) {
             updateContent(it)
         }
-
 
         return rootView
     }

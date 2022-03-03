@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
  * A Fragment representing a list of Users. This fragment
  * has different presentations for handset and larger screen devices. On
  * handsets, the fragment presents a list of users, which when touched,
- * lead to a {@link ItemDetailFragment} representing
+ * lead to a [UserDetailFragment] representing
  * user details. On larger screens, the Navigation controller presents the list of users and
  * user details side-by-side using two vertical panes.
  */
@@ -37,10 +37,8 @@ class UserListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentUserListBinding.inflate(inflater, container, false)
         return binding?.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +47,9 @@ class UserListFragment : Fragment() {
         val recyclerView: RecyclerView? = binding?.userList
         val itemDetailFragmentContainer: View? = view.findViewById(R.id.user_detail_nav_container)
         adapter.onItemClick = { user ->
+            // Mark user as selected in ViewModel
             userViewModel.select(user)
+            // Handle Phone or Tablet navigation
             if (itemDetailFragmentContainer != null) {
                 itemDetailFragmentContainer.findNavController()
                     .navigate(R.id.fragment_user_detail)
@@ -60,14 +60,13 @@ class UserListFragment : Fragment() {
 
         recyclerView?.adapter = adapter
 
-
+        // Feed adapter with flow of User PagingData
         viewLifecycleOwner.lifecycleScope.launch {
             userViewModel.flow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

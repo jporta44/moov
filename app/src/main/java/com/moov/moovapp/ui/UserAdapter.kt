@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,22 +14,25 @@ import com.bumptech.glide.Glide
 import com.moov.moovapp.databinding.UserListContentBinding
 import com.moov.moovapp.model.User
 
+/**
+ * Adapter that supports [PagingData]
+ */
 class UserAdapter(diffCallback: DiffUtil.ItemCallback<User>):
-    PagingDataAdapter<User, UserAdapter.ViewHolder>(diffCallback) {
+    PagingDataAdapter<User, UserAdapter.UserViewHolder>(diffCallback) {
 
     var onItemClick: ((User) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding =
             UserListContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return UserViewHolder(binding)
 
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val item = getItem(position)
         holder.idView.text = item?.id.toString()
-        holder.contentView.text = item?.getFullName()
+        holder.nameView.text = item?.getFullName()
         holder.avatarView?.let {
             Glide.with(it)
                 .load(item?.avatar)
@@ -38,15 +42,15 @@ class UserAdapter(diffCallback: DiffUtil.ItemCallback<User>):
 
     }
 
-    inner class ViewHolder(binding: UserListContentBinding) :
+    inner class UserViewHolder(binding: UserListContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val idView: TextView = binding.idText
-        val contentView: TextView = binding.content
+        val nameView: TextView = binding.nameTxt
         val avatarView: ImageView? = binding.avatar
 
         init {
             binding.root.setOnClickListener {
-                getItem(bindingAdapterPosition)?.let { it1 -> onItemClick?.invoke(it1) }
+                getItem(bindingAdapterPosition)?.let { user -> onItemClick?.invoke(user) }
             }
         }
     }

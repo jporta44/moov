@@ -2,7 +2,11 @@ package com.moov.moovapp.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ApiResponse (
+/**
+ * Api models
+ */
+
+data class ApiResponse(
     @SerializedName("data")
     var users: List<User>,
 
@@ -17,16 +21,17 @@ data class ApiResponse (
     val totalPages: Int = 0
 )
 
-data class User (
+data class User(
     val id: Long,
     val email: String,
     @SerializedName("first_name")
     val firsName: String,
     @SerializedName("last_name")
     val lastName: String,
-    val avatar: String) {
+    val avatar: String
+) {
 
-    fun getFullName (): String {
+    fun getFullName(): String {
         return "$firsName $lastName"
     }
 }

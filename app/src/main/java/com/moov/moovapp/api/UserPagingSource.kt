@@ -4,6 +4,10 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.moov.moovapp.model.User
 
+/**
+ * [PagingSource] implementation that loads [User] by Page Number.
+ * Only paging forward allowed.
+ */
 class UserPagingSource : PagingSource<Int, User>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         return try {
@@ -19,7 +23,7 @@ class UserPagingSource : PagingSource<Int, User>() {
         }
     }
 
-    // NOT USED, just return null (start from scratch if data is refreshed
+    // NOT USED, just return null (start from scratch if data is refreshed)
     override fun getRefreshKey(state: PagingState<Int, User>): Int? {
         return null
     }
