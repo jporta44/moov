@@ -17,7 +17,8 @@ class UserViewModel : ViewModel() {
     }
 
     val flow = Pager(
-        PagingConfig(pageSize = 1)
+        // Using prefetchDistance = 1 to prevent loading all pages at once
+        PagingConfig(pageSize = 6, prefetchDistance = 1)
     ) {
         UserPagingSource()
     }.flow.cachedIn(viewModelScope)

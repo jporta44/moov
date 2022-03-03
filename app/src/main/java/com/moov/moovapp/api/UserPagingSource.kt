@@ -19,10 +19,9 @@ class UserPagingSource : PagingSource<Int, User>() {
         }
     }
 
+    // NOT USED, just return null (start from scratch if data is refreshed
     override fun getRefreshKey(state: PagingState<Int, User>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.nextKey
-        }
+        return null
     }
 
 }
