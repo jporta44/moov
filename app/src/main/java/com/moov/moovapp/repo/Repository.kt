@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface UserService {
     @GET("users")
-    suspend fun getUsers(@Query("page") page: Int): ApiResponse
+    suspend fun getUsers(@Query("page") page: Int?): ApiResponse
 }
 
 object UserApi {
@@ -24,7 +24,8 @@ object UserApi {
         retrofit.create(UserService::class.java)
     }
 
-    suspend fun getUsers(page: Int): ArrayList<User>? {
-        return userService.getUsers(page).users
+    suspend fun getUsers(page: Int?): ArrayList<User>? {
+        val response = userService.getUsers(page)
+        return response.users
     }
 }

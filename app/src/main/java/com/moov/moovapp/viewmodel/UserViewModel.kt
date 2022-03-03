@@ -26,9 +26,7 @@ class UserViewModel : ViewModel() {
 
     private fun loadUsers() {
         viewModelScope.launch {
-            users.value = UserApi.getUsers(1)
+            users.value = UserApi.getUsers(null)
         }
-
-        //users.value = listOf(User(1, "Jhon", "Dow"), User(2, "Amir", "Khan"))
     }
 }
