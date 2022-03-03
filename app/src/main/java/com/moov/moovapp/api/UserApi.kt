@@ -1,4 +1,4 @@
-package com.moov.moovapp.repo
+package com.moov.moovapp.api
 
 import com.moov.moovapp.model.ApiResponse
 import com.moov.moovapp.model.User

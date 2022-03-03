@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moov.moovapp.model.User
-import com.moov.moovapp.repo.UserApi
+import com.moov.moovapp.api.UserApi
 import kotlinx.coroutines.launch
 
 class UserViewModel : ViewModel() {
