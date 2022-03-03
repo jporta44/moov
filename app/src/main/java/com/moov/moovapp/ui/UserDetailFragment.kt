@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.moov.moovapp.databinding.FragmentUserDetailBinding
 import com.moov.moovapp.model.User
+import com.moov.moovapp.viewmodel.UserViewModel
 
 /**
  * A fragment representing a single User detail screen.
@@ -18,10 +20,7 @@ import com.moov.moovapp.model.User
  */
 class UserDetailFragment : Fragment() {
 
-    /**
-     * The placeholder content this fragment is presenting.
-     */
-    private var user: User? = null
+    private val userViewModel: UserViewModel by activityViewModels()
 
     private var itemDetailTextView: TextView? = null
     private var toolbarLayout: CollapsingToolbarLayout? = null
@@ -31,20 +30,6 @@ class UserDetailFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            if (it.containsKey(ARG_USER_ID)) {
-                // Load the placeholder content specified by the fragment
-                // arguments. In a real-world scenario, use a Loader
-                // to load content from a content provider.
-                //user = PlaceholderContent.ITEM_MAP[it.getString(ARG_USER_ID)]
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,27 +42,22 @@ class UserDetailFragment : Fragment() {
         toolbarLayout = binding?.toolbarLayout
         itemDetailTextView = binding?.userDetail
 
-        updateContent()
+        userViewModel.selected.observe(viewLifecycleOwner) {
+            updateContent(it)
+        }
+
 
         return rootView
     }
 
-    private fun updateContent() {
-        toolbarLayout?.title = user?.firsName
+    private fun updateContent(user: User) {
+        toolbarLayout?.title = user.getFullName()
 
-        // Show the placeholder content as text in a TextView.
-        user?.let {
-            itemDetailTextView?.text = it.lastName
+        user.let {
+            itemDetailTextView?.text = it.email
         }
     }
 
-    companion object {
-        /**
-         * The fragment argument representing the user ID that this fragment
-         * represents.
-         */
-        const val ARG_USER_ID = "user_id"
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

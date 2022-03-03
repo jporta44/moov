@@ -10,12 +10,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_list"
-        android:name="com.moov.moovapp.ItemListFragment"
+        android:name="com.moov.moovapp.UserListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:context="com.moov.moovapp.ui.MainActivity"
         tools:listitem="@layout/user_list_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>
