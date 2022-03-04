@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.moov.moovapp.R
 import com.moov.moovapp.databinding.FragmentUserListBinding
@@ -54,7 +55,7 @@ class UserListFragment : Fragment() {
                 itemDetailFragmentContainer.findNavController()
                     .navigate(R.id.fragment_user_detail)
             } else {
-                binding?.root?.findNavController()?.navigate(R.id.show_user_detail)
+                findNavController(this).navigate(R.id.show_user_detail)
             }
         }
 
